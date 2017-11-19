@@ -1,0 +1,32 @@
+{
+    "name": "branchlabs/m1-env-switcher",
+    "description": "Helper library for migrating magento databases from production to dev/staging environments",
+    "keywords": [],
+    "license": "DBAD",
+    "authors": [
+        {
+            "name": "Dave Gieger",
+            "email": "dave@branchlabs.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+      "php": ">=5.5",
+      "illuminate/config": "~5.0",
+      "symfony/finder": "2.8.*",
+      "vlucas/phpdotenv": "^2.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "BranchLabs\\EnvSwitcher\\": "src/"
+        }
+    },
+    "scripts": {
+      "post-root-package-install": [
+        "[[ -d shell/EnvSwitcher/ ]] || (mkdir -p shell/EnvSwitcher/ && cp -r 'deploy/EnvSwitcher/*', 'shell/EnvSwitcher/');"
+      ]
+    }
+}
