@@ -25,15 +25,13 @@
         }
     },
     "scripts": {
-      "deploy-skeleton": [
-        "mkdir -p shell/EnvSwitcher/;",
-        "cp -r vendor/branchlabs/m1-env-switcher/deploy/EnvSwitcher/* shell/EnvSwitcher/;"
-      ],
       "post-update-cmd": [
-        "@deploy-skeleton"
+        "mkdir -p shell/EnvSwitcher/",
+        "cp -r vendor/branchlabs/m1-env-switcher/deploy/EnvSwitcher/* shell/EnvSwitcher/"
       ],
       "post-install-cmd": [
-        "@deploy-skeleton"
+        "mkdir -p shell/EnvSwitcher/",
+        "cp -r vendor/branchlabs/m1-env-switcher/deploy/EnvSwitcher/* shell/EnvSwitcher/"
       ]
     }
 }
