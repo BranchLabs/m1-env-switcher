@@ -25,7 +25,7 @@
         }
     },
     "scripts": {
-      "post-root-package-install": [
+      "post-package-install": [
         "[[ -d shell/EnvSwitcher/ ]] || (mkdir -p shell/EnvSwitcher/ && cp -r 'deploy/EnvSwitcher/*', 'shell/EnvSwitcher/');"
       ]
     }
