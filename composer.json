@@ -30,6 +30,9 @@
       ],
       "post-update-cmd": [
         "@deploy-skeleton"
+      ],
+      "post-install-cmd": [
+        "@deploy-skeleton"
       ]
     }
 }
