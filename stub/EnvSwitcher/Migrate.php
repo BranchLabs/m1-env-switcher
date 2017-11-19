@@ -4,7 +4,7 @@ require_once( dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'abstract.php')
 use BranchLabs\EnvSwitcher\EnvSwitcher;
 use BranchLabs\EnvSwitcher\Helpers\MagentoHelper;
 
-class Mage_Shell_ExampleUsage_Migrate extends Mage_Shell_Abstract {
+class Mage_Shell_EnvSwitcher_Migrate extends Mage_Shell_Abstract {
 
     /**
      * define our environment codes as consts so we can
@@ -25,7 +25,7 @@ class Mage_Shell_ExampleUsage_Migrate extends Mage_Shell_Abstract {
         $this->envSwitcher = new EnvSwitcher($this->_args, $allowedEnvironments, $configPath);
         $this->envSwitcher->run();
 
-        // additional scripts as required
+        // additional database updates as required
 
 //        MagentoHelper::customWriteQuery(
 //            'UPDATE ' . MagentoHelper::getTableName('some_table') . ' SET some_column = :value;',[
@@ -48,5 +48,5 @@ class Mage_Shell_ExampleUsage_Migrate extends Mage_Shell_Abstract {
     }
 }
 
-$shell = new Mage_Shell_ExampleUsage_Migrate();
+$shell = new Mage_Shell_EnvSwitcher_Migrate();
 $shell->run();

@@ -9,7 +9,7 @@ Requirements
 Magento 1.x
 
 
-Installation
+Installation + Setup
 --------
 
 Edit your `composer.json` to require the package
@@ -19,7 +19,14 @@ Edit your `composer.json` to require the package
 }
 ```
 
-Then run composer update in your terminal.
+Then run composer update in your terminal.  After installation is 
+complete, copy the contents of `./stub/` into `./MAGENTO_WEB_ROOT/shell/`:
+
+```bash
+# from magento web root
+cp -r vendor/branchlabs/m1-env-switcher/stub/EnvSwitcher/ shell/;
+```
+
 
 Usage
 --------
