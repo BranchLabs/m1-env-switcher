@@ -23,15 +23,5 @@
         "psr-4": {
             "BranchLabs\\EnvSwitcher\\": "src/"
         }
-    },
-    "scripts": {
-      "post-update-cmd": [
-        "mkdir -p shell/EnvSwitcher/",
-        "cp -r vendor/branchlabs/m1-env-switcher/deploy/EnvSwitcher/* shell/EnvSwitcher/"
-      ],
-      "post-install-cmd": [
-        "mkdir -p shell/EnvSwitcher/",
-        "cp -r vendor/branchlabs/m1-env-switcher/deploy/EnvSwitcher/* shell/EnvSwitcher/"
-      ]
     }
 }
