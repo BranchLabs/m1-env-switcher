@@ -28,7 +28,7 @@
       "deploy-skeleton": [
         "[[ -d shell/EnvSwitcher/ ]] || (mkdir -p shell/EnvSwitcher/ && cp -r deploy/EnvSwitcher/* shell/EnvSwitcher/);"
       ],
-      "post-install-cmd": [
+      "post-update-cmd": [
         "@deploy-skeleton"
       ]
     }
