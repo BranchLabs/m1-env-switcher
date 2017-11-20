@@ -2,6 +2,7 @@
 
 namespace BranchLabs\EnvSwitcher;
 
+use Dotenv\Dotenv;
 use BranchLabs\EnvSwitcher\Repository\Config;
 use BranchLabs\EnvSwitcher\Helpers\MagentoHelper;
 
@@ -25,6 +26,7 @@ class EnvSwitcher {
         $this->shellArgs = $shellArgs;
         $this->allowedEnvironments = $allowedEnvironments;
 
+        $this->_loadDotEnv();
         $this->_parseArgs();
         $this->_setConfigPath( $configPath );
     }
@@ -44,6 +46,11 @@ class EnvSwitcher {
         // I'm leaning toward no, since the risk of processing the queue from
         // dev/integration/staging is too high.
         MagentoHelper::clearEmailQueue();
+    }
+
+    private function _loadDotEnv() {
+        $dotEnv = new Dotenv(getcwd());
+        $dotEnv->load();
     }
 
     /**

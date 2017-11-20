@@ -22,6 +22,9 @@
     "autoload": {
         "psr-4": {
             "BranchLabs\\EnvSwitcher\\": "src/"
-        }
+        },
+        "files": [
+          "src/helpers.php"
+        ]
     }
 }

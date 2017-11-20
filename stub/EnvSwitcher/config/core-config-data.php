@@ -9,9 +9,9 @@ return [
     ],
     'dev' => [
         'web/url/use_store'                                 => '1',
-        'web/unsecure/base_url'                             => 'http://dev.example.com/',
-        'web/secure/base_url'                               => 'https://dev.example.com/',
-        'web/cookie/cookie_domain'                          => 'dev.example.com',
+        'web/unsecure/base_url'                             => 'http://' . env('HOST_NAME', 'dev.example.com') . '/',
+        'web/secure/base_url'                               => 'https://' . env('HOST_NAME', 'dev.example.com') . '/',
+        'web/cookie/cookie_domain'                          => env('HOST_NAME','dev.example.com'),
         // ...
     ],
     'staging' => [
