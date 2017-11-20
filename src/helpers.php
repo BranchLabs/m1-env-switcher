@@ -1,5 +1,8 @@
 <?php
 
+// taken from Illuminate/Support:
+// https://github.com/illuminate/support/blob/master/helpers.php#L595
+
 if (! function_exists('env')) {
     /**
      * Gets the value of an environment variable. Supports boolean, empty and null.
