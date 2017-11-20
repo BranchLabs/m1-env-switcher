@@ -8,6 +8,9 @@ use BranchLabs\EnvSwitcher\Helpers\MagentoHelper;
 
 class EnvSwitcher {
 
+
+    const CONFIG_DIR = 'shell/EnvSwitcher/config/';
+
     protected $shellArgs = [];
     protected $environment;
 
@@ -20,15 +23,14 @@ class EnvSwitcher {
      * @param $shellArgs The shell argument array as provided by Mage_Shell_Abstract::_args
      * @param $allowedEnvironments an array of valid environments to run the migration as.
      *  Likely values: dev, staging, integration
-     * @param $configPath the path to where we can find the config php files
      */
-    public function __construct($shellArgs, $allowedEnvironments, $configPath) {
+    public function __construct($shellArgs, $allowedEnvironments) {
         $this->shellArgs = $shellArgs;
         $this->allowedEnvironments = $allowedEnvironments;
 
         $this->_loadDotEnv();
         $this->_parseArgs();
-        $this->_setConfigPath( $configPath );
+        $this->_loadConfigs();
     }
 
     /**
@@ -73,11 +75,11 @@ class EnvSwitcher {
     }
 
     /**
-     * Load config files/values from the specified path.
-     * @param $path the path to the php config files
+     * Load config files/values
      */
-    private function _setConfigPath($path) {
-        $this->configPath = $path;
+    private function _loadConfigs() {
+
+        $this->configPath = getcwd() . '/' . self::CONFIG_DIR;
 
         $this->config = new Config();
         $this->config->loadConfigurationFiles($this->configPath);

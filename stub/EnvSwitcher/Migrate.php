@@ -20,9 +20,8 @@ class Mage_Shell_EnvSwitcher_Migrate extends Mage_Shell_Abstract {
      */
     public function run() {
         $allowedEnvironments = $this->getAllowedEnvironments();
-        $configPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;
 
-        $this->envSwitcher = new EnvSwitcher($this->_args, $allowedEnvironments, $configPath);
+        $this->envSwitcher = new EnvSwitcher($this->_args, $allowedEnvironments);
         $this->envSwitcher->run();
 
         // additional database updates as required
