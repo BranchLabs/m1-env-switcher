@@ -43,11 +43,7 @@ class EnvSwitcher {
     public function run() {
         $this->_updateDefaultConfigs();
         $this->toggleCache();
-
-        // Should this be moved to a new config value in config/email.php?
-        // I'm leaning toward no, since the risk of processing the queue from
-        // dev/integration/staging is too high.
-        MagentoHelper::clearEmailQueue();
+        $this->clearMailQueue();
     }
 
     private function _loadDotEnv() {
@@ -153,6 +149,20 @@ class EnvSwitcher {
 
         if(isset($configUpdates['disable_cache']) && $configUpdates['disable_cache'] === true) {
             MagentoHelper::disableCaches();
+        }
+    }
+
+    /**
+     * clear mail queue based on config settings
+     */
+    protected function clearMailQueue() {
+        $sharedUpdates = $this->config->get('mail.all');
+        $envUpdates = $this->config->get('mail.' . $this->environment);
+
+        $configUpdates = array_merge($sharedUpdates, $envUpdates);
+
+        if(isset($configUpdates['empty_queue']) && $configUpdates['empty_queue'] === true) {
+            MagentoHelper::clearEmailQueue();
         }
     }
 
