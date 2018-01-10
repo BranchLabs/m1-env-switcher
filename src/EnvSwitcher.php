@@ -88,10 +88,12 @@ class EnvSwitcher {
     private function _updateDefaultConfigs() {
         // read the common core_config_data updates, then merge them with
         // environment-specific values
-        $sharedUpdates = $this->config->get('core-config-data.all');
-        $envUpdates = $this->config->get('core-config-data.' . $this->environment);
+        $configUpdates = $this->config->get('mail.all');
+        $envUpdates = $this->config->get('mail.' . $this->environment);
 
-        $configUpdates = array_merge($sharedUpdates, $envUpdates);
+        if( $envUpdates ) {
+            $configUpdates = array_merge($configUpdates, $envUpdates);
+        }
 
         // process all of the configuration values
         $this->bulkUpdateConfig($configUpdates);
