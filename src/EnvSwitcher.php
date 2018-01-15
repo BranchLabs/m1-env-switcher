@@ -48,7 +48,10 @@ class EnvSwitcher {
 
     private function _loadDotEnv() {
         $dotEnv = new Dotenv(getcwd());
-        $dotEnv->load();
+        if( file_exists('.env') ) {
+            $dotEnv->load();
+        }
+
     }
 
     /**
