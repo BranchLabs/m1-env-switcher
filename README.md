@@ -13,7 +13,7 @@ Magento 1.x
 ### Install this package
 Edit your `composer.json` to require the package
 ```js
-"require": {
+"require-dev": {
     "branchlabs/m1-env-switcher": "1.*"
 }
 ```
