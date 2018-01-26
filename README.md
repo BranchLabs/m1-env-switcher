@@ -32,7 +32,13 @@ In `shell/EnvSwitcher/Migrate.php`, modify the `getAllowedEnvironments()` method
 such that it returns an array of valid environment identifiers where you will run 
 migrations.  If you only have a dev and staging environment, it can be left untouched.
 
-#### Extra Database Update
+#### Update Settings
+The files in `shell/EnvSwitcher/config/` should be modified for your needs, most importantly 
+`core-config-data.php`.  If you use dotEnv (`env()`), create a `.env` in your working directory
+and supply the necessary variables.  It's also not a bad idea to create a `.env.sample` so other
+developers know what to expect.
+
+#### Extra Database Updates
 
 You can run custom queries within the `shell/EnvSwitcher/Migrate.php` file via the `MagentoHelper` 
 class, if needed:
