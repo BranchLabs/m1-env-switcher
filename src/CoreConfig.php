@@ -2,6 +2,7 @@
 
 namespace BranchLabs\EnvSwitcher;
 
+use \Mage;
 use BranchLabs\EnvSwitcher\Helpers\MagentoHelper;
 
 class CoreConfig {
@@ -56,7 +57,17 @@ class CoreConfig {
      * Persist the updated config values to the database
      */
     public function save() {
+        if( $this->coreConfigRowExists() ) {
+            $this->update();
+        } else {
+            $this->insert();
+        }
+    }
 
+    /**
+     * update the core_config_data row
+     */
+    private function update() {
         if( empty($this->scope) && empty($this->scopeId) ) {
             // if a scope or scopeId are not provided,
             // we want to update all records of the config path with a new value
@@ -81,6 +92,65 @@ class CoreConfig {
     }
 
     /**
+     * add a new core_config_data row
+     */
+    private function insert() {
+
+        if (empty($this->scope) || empty($this->scopeId)) {
+            $statement = "INSERT INTO {$this->_tableName} (value, path) VALUES(:value, :path);";
+            $params = [
+                'value' => $this->value,
+                'path' => $this->path,
+            ];
+
+        } else {
+            $statement = "INSERT INTO {$this->_tableName} (value, path, scope, scope_id) VALUES(:value, :path, :scope, :scopeId);";
+            $params = [
+                'value' => $this->value,
+                'path' => $this->path,
+                'scope' => $this->scope,
+                'scopeId' => $this->scopeId,
+            ];
+        }
+
+        MagentoHelper::customWriteQuery($statement, $params);
+    }
+
+    /**
+     * Return whether a core_config_data row exists for the specified path (and optionally scope, scope_id)
+     * @param $path
+     * @param string $scope
+     * @param int $scopeId
+     * @return bool
+     */
+    private function coreConfigRowExists() {
+        $resource = Mage::getSingleton('core/resource');
+        $dbRead = $resource->getConnection('core_read');
+
+
+        if (empty($this->scope) || empty($this->scopeId)) {
+            $statement = "SELECT * FROM " . MagentoHelper::getTableName('core_config_data') . " WHERE path = :path;";
+            $params =[
+                'path' => $this->path
+            ];
+
+        } else {
+            $statement = "SELECT * FROM " . MagentoHelper::getTableName('core_config_data')
+                . " WHERE path = :path AND scope = :scope AND scope_id = :scopeId;";
+            $params = [
+                'path' => $this->path,
+                'scope' => $this->scope,
+                'scopeId' => $this->scopeId,
+            ];
+        }
+
+        $readResult = $dbRead->fetchAll($statement, $params);
+
+        return count($readResult) > 0;
+
+    }
+
+    /**
      * @param $scopeCode
      * @return int
      */
@@ -91,12 +161,12 @@ class CoreConfig {
                 return 0;
             }
 
-            $websiteId = \Mage::getModel('core/website')->load($codeParts[0], 'code')->getId();
+            $websiteId = Mage::getModel('core/website')->load($codeParts[0], 'code')->getId();
             return $websiteId;
         } elseif( count($codeParts) == 2) {
 
-            $websiteId = \Mage::getModel('core/website')->load($codeParts[0], 'code')->getId();
-            $storeId = \Mage::app()->getStore($codeParts[1])->getId();
+            $websiteId = Mage::getModel('core/website')->load($codeParts[0], 'code')->getId();
+            $storeId = Mage::app()->getStore($codeParts[1])->getId();
 
             return $storeId;
         }
