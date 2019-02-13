@@ -175,7 +175,9 @@ class CoreConfig {
 
     private static function getScopeFromCode($scopeCode) {
         $codeParts = explode(':', $scopeCode);
-        if( count($codeParts) == 1) {
+        if( count($codeParts) == 1 && $codeParts[0] == 'default') {
+            return 'default';
+        } elseif( count($codeParts) == 1 ) {
             return 'websites';
         } else {
             return 'stores';
